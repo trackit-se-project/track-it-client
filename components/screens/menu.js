@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
 export default function Menu({ changeScreen }) {
@@ -19,6 +19,7 @@ export default function Menu({ changeScreen }) {
         title="Sleep Tracker"
         onPress={() => changeScreen("sleepTracker")}
       ></Button>
+      <Button title="Logout" onPress={() => changeScreen("login")}></Button>
     </View>
   );
 }

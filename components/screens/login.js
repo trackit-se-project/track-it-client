@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 
-export default function Login({ changeScreen }) {
+export default function Login({ getUser, changeScreen }) {
   const [credentials, setCredentials] = useState({
     email: "",
     pass: ""
@@ -9,7 +9,7 @@ export default function Login({ changeScreen }) {
 
   const [errMsg, setErrMsg] = useState({
     show: false,
-    msg: "Bad bad message"
+    msg: ""
   });
 
   const setEmail = text => {
@@ -31,41 +31,36 @@ export default function Login({ changeScreen }) {
   };
 
   const auth = () => {
-    // fetch("http://192.168.0.1:3000/login/", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     email: credentials["email"],
-    //     pass: credentials["pass"]
-    //   })
-    // }).then(res => {
-    //   if (res["data"]["_id"]) {
-    //     changeScreen("menu");
-
-    //     setErrMsg(prevErrMsg => {
-    //       return { show: false, msg: "" };
-    //     });
-    //   } else if (res["data"]["msg"]) {
-    //     setErrMsg(prevErrMsg => {
-    //       return { show: true, msg: res["data"]["msg"] };
-    //     });
-    //   }
-    // });
-    fetch("https:///login", {
+    fetch("http://192.168.1.5:3000/login", {
       method: "POST",
-      body: JSON.stringify({
-        email: credentials["email"]
-        //     pass: credentials["pass"]
-      }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: credentials["email"],
+        pass: credentials["pass"]
+      })
     })
-      .then(response => response.json())
-      .then(json => console.log(json));
+      .then(res => res.json())
+      .then(json => {
+        if (json["_id"]) {
+          setErrMsg(prevErrMsg => {
+            return { show: false, msg: "" };
+          });
+
+          getUser(json);
+        } else if (json["msg"]) {
+          setErrMsg(prevErrMsg => {
+            return { show: true, msg: json["msg"] };
+          });
+        }
+      })
+      .catch(err =>
+        setErrMsg(prevErrMsg => {
+          return { show: true, msg: err };
+        })
+      );
   };
 
   return (

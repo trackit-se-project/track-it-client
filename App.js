@@ -12,6 +12,10 @@ import SleepTracker from "./components/screens/sleepTracker";
 
 export default function App() {
   const [screen, setScreen] = useState("login");
+  const [user, setUser] = useState({
+    _id: "",
+    email: ""
+  });
 
   const changeScreen = newScreen => {
     setScreen(prevScreen => {
@@ -19,16 +23,37 @@ export default function App() {
     });
   };
 
+  const getUser = user => {
+    setUser(prevUser => {
+      return {
+        _id: user["_id"],
+        email: user["email"]
+      };
+    });
+
+    changeScreen("menu");
+  };
+
   return (
     <View style={styles.container}>
-      {screen == "login" && <Login changeScreen={changeScreen} />}
-      {screen == "register" && <Register changeScreen={changeScreen} />}
-      {screen == "menu" && <Menu changeScreen={changeScreen} />}
-      {screen == "todos" && <Todos changeScreen={changeScreen} />}
-      {screen == "notes" && <Notes changeScreen={changeScreen} />}
-      {screen == "calendar" && <Calendar changeScreen={changeScreen} />}
-      {screen == "waterTracker" && <WaterTracker changeScreen={changeScreen} />}
-      {screen == "sleepTracker" && <SleepTracker changeScreen={changeScreen} />}
+      {screen == "login" && (
+        <Login getUser={getUser} changeScreen={changeScreen} />
+      )}
+      {screen == "register" && (
+        <Register getUser={getUser} changeScreen={changeScreen} />
+      )}
+      {screen == "menu" && <Menu user={user} changeScreen={changeScreen} />}
+      {screen == "todos" && <Todos user={user} changeScreen={changeScreen} />}
+      {screen == "notes" && <Notes user={user} changeScreen={changeScreen} />}
+      {screen == "calendar" && (
+        <Calendar user={user} changeScreen={changeScreen} />
+      )}
+      {screen == "waterTracker" && (
+        <WaterTracker user={user} changeScreen={changeScreen} />
+      )}
+      {screen == "sleepTracker" && (
+        <SleepTracker user={user} changeScreen={changeScreen} />
+      )}
     </View>
   );
 }

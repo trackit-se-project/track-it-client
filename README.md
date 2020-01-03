@@ -50,6 +50,12 @@ In <b>Menu.js</b> will be the tiles for navigation which the user will see after
 
 You will develop your feature in its file from the `components/screens` folder. If the structure of the components is getting messy, break it up into smaller components which will be saved in `components/helpers` and imported.
 
+Your components will receive a prop, `user` with two keys, `_id` and `email`, which the app receives after the login/register. You can use it to tie your data to the id of the current user if you need it.
+
 ### ReactNative components
 
 [Here](https://facebook.github.io/react-native/docs/button) you will find the whole list of supported Android elements in ReactNative and how they can be viewed.
+
+### Requests
+
+Your Node.js server will be listening on <b>localhost</b> but the Expo emulator also uses this local address. So, you will have to get your machine's private IP address from `ipconfig` (should be 192.168.0.something) and, instead of making the requests from the client to the backend on <i>localhost:3000/your-api</i>, you'll be using the IP address you extracted from `ipconfig`. Mine was `192.168.0.4`, so my login request was made on `http://192.168.0.4:3000/login`. The request does not go directly from the client to the server but through Expo, so Expo calls <b>localhost</b> for you and you call the IP above.
