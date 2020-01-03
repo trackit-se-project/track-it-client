@@ -50,4 +50,6 @@ In <b>Menu.js</b> will be the tiles for navigation which the user will see after
 
 You will develop your feature in its file from the `components/screens` folder. If the structure of the components is getting messy, break it up into smaller components which will be saved in `components/helpers` and imported.
 
-Follow the comments for more info.
+### ReactNative components
+
+[Here](https://facebook.github.io/react-native/docs/button) you will find the whole list of supported Android elements in ReactNative and how they can be viewed.
