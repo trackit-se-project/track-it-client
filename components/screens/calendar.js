@@ -1,20 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
+import EventsList from "../helpers/eventsList";
 
-export default function Calendar({ changeScreen }) {
+export default function Calendar({ user, changeScreen }) {
+  const [events, setEvents] = useState([]);
+
+  const onDatePressed = dateTime => {
+    setEvents(prevEvents => {
+      return prevEvents.filter();
+    });
+  };
   return (
-    <View style={styles.container}>
-      <Text>Calendar Screen</Text>
-      <Button title="Back" onPress={() => changeScreen("menu")}></Button>
+    <View>
+      <EventsList user={user}/>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

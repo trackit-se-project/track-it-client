@@ -31,7 +31,7 @@ export default function Register({ getUser, changeScreen }) {
   };
 
   const register = () => {
-    fetch("http://192.168.1.5:3000/register", {
+    fetch("http://192.168.1.4:3000/register", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -11,10 +11,10 @@ import WaterTracker from "./components/screens/waterTracker";
 import SleepTracker from "./components/screens/sleepTracker";
 
 export default function App() {
-  const [screen, setScreen] = useState("login");
+  const [screen, setScreen] = useState("calendar");
   const [user, setUser] = useState({
-    _id: "",
-    email: ""
+    _id: "5e0faf7eef27d11820fe3433",
+    email: "bogdan"
   });
 
   const changeScreen = newScreen => {
@@ -35,7 +35,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       {screen == "login" && (
         <Login getUser={getUser} changeScreen={changeScreen} />
       )}
@@ -57,12 +57,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
