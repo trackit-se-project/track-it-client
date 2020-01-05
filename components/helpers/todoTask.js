@@ -13,7 +13,7 @@ export default function TodoTask({ todo }) {
 
   const onDelete = () => {
     console.log(todo._id);
-    fetch(`http://192.168.0.150:3000/todos/${todo._id}`, {
+    fetch(`http://192.168.1.5:3000/todos/${todo._id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -42,7 +42,7 @@ export default function TodoTask({ todo }) {
   };
 
   const onUpdate = () => {
-    fetch(`http://192.168.0.150:3000/todos/${todo._id}`, {
+    fetch(`http://192.168.1.5:3000/todos/${todo._id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
