@@ -35,7 +35,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       {screen == "login" && (
         <Login getUser={getUser} changeScreen={changeScreen} />
       )}
@@ -57,12 +57,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

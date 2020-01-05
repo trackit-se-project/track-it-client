@@ -92,17 +92,15 @@ export default function Login({ getUser, changeScreen }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    paddingTop: 100
   },
   banner: {
     fontSize: 36
   },
   bannerSmall: {
     fontSize: 24,
-    marginBottom: 70
+    marginBottom: 100
   },
   errMsg: {
     width: 300,
