@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
+import LOCAL_IP from "../../ipconfig";
+
 export default function WaterTracker({ user, changeScreen }) {
   const getDate = d => {
     const date = d ? new Date(d) : new Date();
@@ -16,9 +18,7 @@ export default function WaterTracker({ user, changeScreen }) {
   };
 
   const fetchTotalAmount = () => {
-    fetch(
-      "http://192.168.1.5:3000/water?userId=" + user._id + "&date=" + getDate()
-    )
+    fetch(LOCAL_IP + "/water?userId=" + user._id + "&date=" + getDate())
       .then(res => res.json())
       .then(json => {
         setTotalAmount(json.totalAmount);
@@ -31,7 +31,7 @@ export default function WaterTracker({ user, changeScreen }) {
   const [totalAmount, setTotalAmount] = useState(fetchTotalAmount());
 
   const addAmount = (amount, date = null) => {
-    fetch("http://192.168.1.5:3000/water", {
+    fetch(LOCAL_IP + "/water", {
       method: "POST",
       headers: {
         Accept: "application/json",

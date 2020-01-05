@@ -11,10 +11,10 @@ import WaterTracker from "./components/screens/waterTracker";
 import SleepTracker from "./components/screens/sleepTracker";
 
 export default function App() {
-  const [screen, setScreen] = useState("calendar");
+  const [screen, setScreen] = useState("login");
   const [user, setUser] = useState({
-    _id: "5e0faf7eef27d11820fe3433",
-    email: "bogdan"
+    _id: "",
+    email: ""
   });
 
   const changeScreen = newScreen => {

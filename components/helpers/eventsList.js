@@ -11,11 +11,13 @@ import Header from "./header";
 import EventItem from "./eventItem";
 import AddEvent from "./addEvent";
 
+import LOCAL_IP from "../../ipconfig";
+
 export default function EventsList({ user, selectedDate, filteredEvents }) {
   const [events, setEvents] = useState(filteredEvents);
 
   const pressHandler = key => {
-    fetch("http://192.168.1.4:3000/events/" + key, {
+    fetch(LOCAL_IP + "/events/" + key, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -28,7 +30,7 @@ export default function EventsList({ user, selectedDate, filteredEvents }) {
   };
 
   const submitHandle = event => {
-    fetch("http://192.168.1.4:3000/events", {
+    fetch(LOCAL_IP + "/events", {
       method: "POST",
       headers: {
         Accept: "application/json",

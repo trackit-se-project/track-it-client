@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 
+import LOCAL_IP from "../../ipconfig";
+
 export default function Register({ getUser, changeScreen }) {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -31,7 +33,7 @@ export default function Register({ getUser, changeScreen }) {
   };
 
   const register = () => {
-    fetch("http://192.168.1.4:3000/register", {
+    fetch(LOCAL_IP + "/register", {
       method: "POST",
       headers: {
         Accept: "application/json",

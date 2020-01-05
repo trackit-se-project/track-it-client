@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import EventsList from "../helpers/eventsList";
 
+import LOCAL_IP from "../../ipconfig";
+
 export default function Calendar({ user, changeScreen }) {
   const [calendarState, setCalendarState] = useState({
     selectedDate: null,
@@ -25,19 +27,13 @@ export default function Calendar({ user, changeScreen }) {
       "/" +
       date.getFullYear();
 
-    fetch(
-      "http://192.168.1.4:3000/events?userId=" +
-        user._id +
-        "&date=" +
-        startDate,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+    fetch(LOCAL_IP + "/events?userId=" + user._id + "&date=" + startDate, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    )
+    })
       .then(res => res.json())
       .then(json => {
         setCalendarState({
