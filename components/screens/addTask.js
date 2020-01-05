@@ -1,22 +1,29 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Button, TextInput, DatePickerAndroid, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  TextInput,
+  DatePickerAndroid,
+  TouchableOpacity
+} from "react-native";
 
 export default function AddTask({ user, changeScreen }) {
-
   const [errMsg, setErrMsg] = useState({
     show: false,
     msg: ""
   });
 
   const addTodo = () => {
-    fetch("http://192.168.1.5:3000/todos", {
+    fetch(LOCAL_IP + "/todos", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email: user['email'],
+        email: user["email"],
         taskName: taskName,
         date: date,
         checked: false
@@ -42,7 +49,7 @@ export default function AddTask({ user, changeScreen }) {
         })
       );
 
-    changeScreen("todos")
+    changeScreen("todos");
   };
 
   const [date, setDate] = useState(new Date());
@@ -57,13 +64,12 @@ export default function AddTask({ user, changeScreen }) {
         setDate(new Date(year, month, day));
       }
     } catch ({ code, message }) {
-      console.warn('Cannot open date picker', message);
+      console.warn("Cannot open date picker", message);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
-
       <Text style={styles.bannerSmall}>Create a new task</Text>
       <Text style={styles.inputLabel}>Name</Text>
       <TextInput
@@ -74,8 +80,12 @@ export default function AddTask({ user, changeScreen }) {
 
       <TouchableOpacity onPress={() => openUpPicker()}>
         <Text style={styles.inputLabel}>
-          {'Select date: ' +
-            date.getDate() + "-" + parseInt(date.getMonth() + 1) + "-" + parseInt(date.getFullYear())}
+          {"Select date: " +
+            date.getDate() +
+            "-" +
+            parseInt(date.getMonth() + 1) +
+            "-" +
+            parseInt(date.getFullYear())}
         </Text>
       </TouchableOpacity>
       <Text style={styles.bannerSmall}></Text>
@@ -88,7 +98,6 @@ export default function AddTask({ user, changeScreen }) {
           <Button title="Add Task" onPress={() => addTodo()}></Button>
         </View>
       </View>
-
     </View>
   );
 }
@@ -121,11 +130,10 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   buttonView: {
     flex: 1,
     padding: 10
   }
 });
-

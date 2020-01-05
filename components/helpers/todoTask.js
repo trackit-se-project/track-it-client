@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Icon, CheckBox, Body } from "native-base";
 
-export default function TodoTask({ todo }) {
+import LOCAL_IP from "../../ipconfig";
 
+export default function TodoTask({ todo }) {
   const [errMsg, setErrMsg] = useState({
     show: false,
     msg: ""
@@ -12,8 +13,7 @@ export default function TodoTask({ todo }) {
   const [checked, setChecked] = useState(todo.checked);
 
   const onDelete = () => {
-    console.log(todo._id);
-    fetch(`http://192.168.1.5:3000/todos/${todo._id}`, {
+    fetch(`${LOCAL_IP}/todos/${todo._id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -42,7 +42,7 @@ export default function TodoTask({ todo }) {
   };
 
   const onUpdate = () => {
-    fetch(`http://192.168.1.5:3000/todos/${todo._id}`, {
+    fetch(`${LOCAL_IP}/todos/${todo._id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -75,9 +75,7 @@ export default function TodoTask({ todo }) {
 
   return (
     <View style={styles.row}>
-      <View
-        style={styles.element}
-      >
+      <View style={styles.element}>
         <TouchableOpacity
           onPress={() => {
             setChecked(!checked);
@@ -92,25 +90,21 @@ export default function TodoTask({ todo }) {
               onUpdate();
             }}
           />
-          <Body
-            style={styles.body}
-          >
+          <Body style={styles.body}>
             <Text
               style={{
-                color: checked ? 'grey' : 'black',
-                textDecorationLine: checked ? 'line-through' : 'none',
+                color: checked ? "grey" : "black",
+                textDecorationLine: checked ? "line-through" : "none"
               }}
             >
               {todo.taskName}
             </Text>
           </Body>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => onDelete()}
-        >
+        <TouchableOpacity onPress={() => onDelete()}>
           <Icon
             name="trash"
-            color={`${todo.taskName.length > 0 ? 'black' : 'grey'}`}
+            color={`${todo.taskName.length > 0 ? "black" : "grey"}`}
             size={23}
           />
         </TouchableOpacity>
@@ -121,20 +115,18 @@ export default function TodoTask({ todo }) {
 
 const styles = StyleSheet.create({
   body: {
-    alignItems: 'flex-start',
-    paddingLeft: 25,
+    alignItems: "flex-start",
+    paddingLeft: 25
   },
   element: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingRight: 10,
-    paddingVertical: 5,
+    paddingVertical: 5
   },
-  touchableItem:
-  {
+  touchableItem: {
     flex: 1,
-    width: '100%',
-    flexDirection: 'row',
+    width: "100%",
+    flexDirection: "row"
   }
-
 });

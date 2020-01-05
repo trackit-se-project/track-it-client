@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Button, StatusBar, FlatList, SafeAreaView } from "react-native";
-import TodoTask from '../helpers/todoTask';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  StatusBar,
+  FlatList,
+  SafeAreaView
+} from "react-native";
+import TodoTask from "../helpers/todoTask";
 
 export default function Todos({ user, changeScreen }) {
-
   const [checked, setChecked] = useState(false);
   const [todos, setTodos] = useState([]);
 
@@ -12,29 +19,26 @@ export default function Todos({ user, changeScreen }) {
     msg: ""
   });
 
-  fetch(`http://192.168.1.5:3000/todos?email=${user['email']}`)
+  fetch(`${LOCAL_IP}/todos?email=${user["email"]}`)
     .then(res => res.json())
-    .then(data => setTodos(data['todos']))
+    .then(data => setTodos(data["todos"]))
     .catch(err => {
       setErrMsg(prevErrMsg => {
         return { show: true, msg: err };
       });
-    }
-  );
+    });
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={'#2f95dc'} barStyle="light-content" />
+      <StatusBar backgroundColor={"#2f95dc"} barStyle="light-content" />
       <Text style={styles.bannerSmall}></Text>
 
-      <Text style={styles.bannerSmall}>                      Tasks                               </Text>
+      <Text style={styles.bannerSmall}> Tasks </Text>
       <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={todos}
-          keyExtractor={todo => todo['_id']}
-          renderItem={({ item: todo }) => (
-            <TodoTask todo={todo}></TodoTask>
-          )}
+          keyExtractor={todo => todo["_id"]}
+          renderItem={({ item: todo }) => <TodoTask todo={todo}></TodoTask>}
         />
       </SafeAreaView>
 
@@ -43,7 +47,10 @@ export default function Todos({ user, changeScreen }) {
           <Button title="Back" onPress={() => changeScreen("menu")}></Button>
         </View>
         <View style={styles.buttonView}>
-          <Button title="Add Task" onPress={() => changeScreen("addTask")}></Button>
+          <Button
+            title="Add Task"
+            onPress={() => changeScreen("addTask")}
+          ></Button>
         </View>
       </View>
     </View>
@@ -55,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   addButton: {
-    backgroundColor: '#2f95dc'
+    backgroundColor: "#2f95dc"
   },
   bannerSmall: {
     fontSize: 24,
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   buttonView: {
     flex: 1,
