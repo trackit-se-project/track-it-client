@@ -44,14 +44,9 @@ export default function Calendar({ user, changeScreen }) {
       .catch(err => console.log(err));
   };
 
-  console.log(calendarState.selectedDate);
-
   return (
-    <View /*style={styles.container}*/>
+    <View style={styles.container}>
       <CalendarPicker onDateChange={onDateChange} />
-      {/* <View>
-        <Text>SELECTED DATE: {startDate}</Text>
-      </View> */}
       {calendarState.selectedDate != null && (
         <EventsList
           user={user}
@@ -59,15 +54,14 @@ export default function Calendar({ user, changeScreen }) {
           filteredEvents={calendarState.filteredEvents}
         />
       )}
-      {/* <Button title="Back" onPress={() => changeScreen("menu")}></Button> */}
+      <Button title="Back" onPress={() => changeScreen("menu")}></Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#FFFFFF",
-    marginTop: 100
+    marginTop: 30
   }
 });
