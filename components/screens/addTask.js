@@ -9,7 +9,7 @@ export default function AddTask({ user, changeScreen }) {
   });
 
   const addTodo = () => {
-    fetch("http://192.168.0.150:3000/todos", {
+    fetch("http://192.168.1.5:3000/todos", {
       method: "POST",
       headers: {
         Accept: "application/json",
