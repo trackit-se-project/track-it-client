@@ -12,10 +12,7 @@ export default function Todos({ user, changeScreen }) {
     msg: ""
   });
 
-  const listItems = todos.map((todo) =>
-    <TodoTask todo={todo}></TodoTask>);
-
-  fetch(`http://192.168.0.150:3000/todos?email=${user['email']}`)
+  fetch(`http://192.168.1.5:3000/todos?email=${user['email']}`)
     .then(res => res.json())
     .then(data => setTodos(data['todos']))
     .catch(err => {
