@@ -34,7 +34,7 @@ export default function Todos({ user, changeScreen }) {
       <Text style={styles.bannerSmall}></Text>
 
       <Text style={styles.bannerSmall}> Tasks </Text>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView>
         <FlatList
           data={todos}
           keyExtractor={todo => todo["_id"]}
@@ -59,7 +59,7 @@ export default function Todos({ user, changeScreen }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    paddingHorizontal: 20
   },
   addButton: {
     backgroundColor: "#2f95dc"
@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginTop: 50
   },
   buttonView: {
-    flex: 1,
     padding: 10
   }
 });

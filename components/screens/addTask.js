@@ -104,14 +104,14 @@ export default function AddTask({ user, changeScreen }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center"
   },
   bannerSmall: {
     fontSize: 24,
-    marginBottom: 70
+    marginBottom: 70,
+    marginTop: 120
   },
   inputLabel: {
     width: 300,
@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   buttonView: {
-    flex: 1,
     padding: 10
   }
 });

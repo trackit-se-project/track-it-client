@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   element: {
     flexDirection: "row",
     alignItems: "center",
-    paddingRight: 10,
     paddingVertical: 5
   },
   touchableItem: {
