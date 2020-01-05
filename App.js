@@ -9,6 +9,7 @@ import Notes from "./components/screens/notes";
 import Calendar from "./components/screens/calendar";
 import WaterTracker from "./components/screens/waterTracker";
 import SleepTracker from "./components/screens/sleepTracker";
+import AddTask from "./components/screens/addTask";
 
 export default function App() {
   const [screen, setScreen] = useState("login");
@@ -53,6 +54,9 @@ export default function App() {
       )}
       {screen == "sleepTracker" && (
         <SleepTracker user={user} changeScreen={changeScreen} />
+      )}
+      {screen == "addTask" && (
+        <AddTask user={user} changeScreen={changeScreen} />
       )}
     </View>
   );
