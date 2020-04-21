@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
-export default function Menu({ changeScreen }) {
+export default function Menu({ changeScreen, logout }) {
   function Separator() {
     return <View style={styles.separator} />;
   }
@@ -29,7 +29,7 @@ export default function Menu({ changeScreen }) {
         onPress={() => changeScreen("sleepTracker")}
       ></Button>
       <Separator />
-      <Button title="Logout" onPress={() => changeScreen("login")}></Button>
+      <Button title="Logout" onPress={() => logout()}></Button>
     </View>
   );
 }
@@ -37,9 +37,9 @@ export default function Menu({ changeScreen }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingTop: 100
+    paddingTop: 100,
   },
   separator: {
-    marginVertical: 20
-  }
+    marginVertical: 20,
+  },
 });

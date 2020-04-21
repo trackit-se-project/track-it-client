@@ -4,35 +4,43 @@ import { StyleSheet, View } from "react-native";
 import Login from "./components/screens/login";
 import Register from "./components/screens/register";
 import Menu from "./components/screens/menu";
-import Todos from "./components/screens/todos";
-import Notes from "./components/screens/notes";
-import Calendar from "./components/screens/calendar";
-import WaterTracker from "./components/screens/waterTracker";
-import SleepTracker from "./components/screens/sleepTracker";
-import AddTask from "./components/screens/addTask";
 
 export default function App() {
   const [screen, setScreen] = useState("login");
   const [user, setUser] = useState({
-    _id: "",
-    email: ""
+    id: "",
+    email: "",
+    token: "",
   });
 
-  const changeScreen = newScreen => {
-    setScreen(prevScreen => {
+  const changeScreen = (newScreen) => {
+    setScreen((prevScreen) => {
       return newScreen;
     });
   };
 
-  const getUser = user => {
-    setUser(prevUser => {
+  const getUser = (user) => {
+    setUser((prevUser) => {
       return {
-        _id: user["_id"],
-        email: user["email"]
+        id: user["user_id"],
+        email: user["email"],
+        token: user["token"],
       };
     });
 
     changeScreen("menu");
+  };
+
+  const logout = () => {
+    setUser((prevUser) => {
+      return {
+        id: "",
+        email: "",
+        token: "",
+      };
+    });
+
+    changeScreen("login");
   };
 
   return (
@@ -43,21 +51,7 @@ export default function App() {
       {screen == "register" && (
         <Register getUser={getUser} changeScreen={changeScreen} />
       )}
-      {screen == "menu" && <Menu user={user} changeScreen={changeScreen} />}
-      {screen == "todos" && <Todos user={user} changeScreen={changeScreen} />}
-      {screen == "notes" && <Notes user={user} changeScreen={changeScreen} />}
-      {screen == "calendar" && (
-        <Calendar user={user} changeScreen={changeScreen} />
-      )}
-      {screen == "waterTracker" && (
-        <WaterTracker user={user} changeScreen={changeScreen} />
-      )}
-      {screen == "sleepTracker" && (
-        <SleepTracker user={user} changeScreen={changeScreen} />
-      )}
-      {screen == "addTask" && (
-        <AddTask user={user} changeScreen={changeScreen} />
-      )}
+      {screen == "menu" && <Menu changeScreen={changeScreen} logout={logout} />}
     </View>
   );
 }

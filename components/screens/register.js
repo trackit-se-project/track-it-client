@@ -6,63 +6,69 @@ import LOCAL_IP from "../../ipconfig";
 export default function Register({ getUser, changeScreen }) {
   const [credentials, setCredentials] = useState({
     email: "",
-    pass: ""
+    password: "",
   });
 
   const [errMsg, setErrMsg] = useState({
     show: false,
-    msg: ""
+    msg: "",
   });
 
-  const setEmail = text => {
-    setCredentials(prevCredentials => {
+  const setEmail = (text) => {
+    setCredentials((prevCredentials) => {
       return {
         email: text,
-        pass: prevCredentials["pass"]
+        password: prevCredentials["password"],
       };
     });
   };
 
-  const setPassword = text => {
-    setCredentials(prevCredentials => {
+  const setPassword = (text) => {
+    setCredentials((prevCredentials) => {
       return {
         email: prevCredentials["email"],
-        pass: text
+        password: text,
       };
     });
   };
 
   const register = () => {
-    fetch(LOCAL_IP + "/register", {
+    fetch(LOCAL_IP + "/users/sign_up", {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: credentials["email"],
-        pass: credentials["pass"]
-      })
+        password: credentials["password"],
+      }),
     })
-      .then(res => res.json())
-      .then(json => {
-        if (json["_id"]) {
-          setErrMsg(prevErrMsg => {
+      .then((res) => res.json())
+      .then((json) => {
+        if (json["user_id"]) {
+          setErrMsg((prevErrMsg) => {
             return { show: false, msg: "" };
           });
 
           getUser(json);
-        } else if (json["msg"]) {
-          setErrMsg(prevErrMsg => {
-            return { show: true, msg: json["msg"] };
-          });
+        } else {
+          if (typeof json["sqlMessage"] != undefined) {
+            setErrMsg((prevErrMsg) => {
+              return { show: true, msg: json["sqlMessage"] };
+            });
+          } else {
+            setErrMsg((prevErrMsg) => {
+              return { show: true, msg: "Ooops! Something happened..." };
+            });
+          }
         }
       })
-      .catch(err =>
-        setErrMsg(prevErrMsg => {
+      .catch((err) => {
+        setErrMsg((prevErrMsg) => {
           return { show: true, msg: err };
-        })
-      );
+        });
+      });
   };
 
   return (
@@ -73,13 +79,13 @@ export default function Register({ getUser, changeScreen }) {
       <Text style={styles.inputLabel}>Email</Text>
       <TextInput
         style={styles.input}
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
         value={credentials["email"]}
       />
       <Text style={styles.inputLabel}>Password</Text>
       <TextInput
         style={styles.input}
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
         value={credentials["pass"]}
       />
       <Button title="Register" onPress={() => register()}></Button>
@@ -92,26 +98,26 @@ export default function Register({ getUser, changeScreen }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    paddingTop: 100
+    paddingTop: 100,
   },
   banner: {
-    fontSize: 36
+    fontSize: 36,
   },
   bannerSmall: {
     fontSize: 24,
-    marginBottom: 100
+    marginBottom: 100,
   },
   errMsg: {
     width: 300,
     color: "red",
     fontSize: 18,
     textAlign: "left",
-    marginBottom: 30
+    marginBottom: 30,
   },
   inputLabel: {
     width: 300,
     fontSize: 18,
-    textAlign: "left"
+    textAlign: "left",
   },
   input: {
     borderColor: "black",
@@ -121,11 +127,11 @@ const styles = StyleSheet.create({
     width: 300,
     padding: 10,
     margin: 10,
-    marginBottom: 30
+    marginBottom: 30,
   },
   loginText: {
     fontSize: 18,
     marginTop: 50,
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
